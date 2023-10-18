@@ -1,5 +1,3 @@
-Certainly! Here's the corrected version with the correct port (5000) specified:
-
 ```markdown
 # Slicedice Node.js Express App
 
@@ -49,6 +47,17 @@ The app will be running at `http://localhost:5000`.
 
 ## API Endpoints
 
+### Login Mechanism
+
+#### Login and Get JWT Token
+
+```bash
+curl -X POST http://localhost:5000/employee/login -H "Content-Type: application/json" -d '{"username": "your_username", "password": "your_password"}'
+```
+
+Replace `your_username` and `your_password` with your actual credentials.
+
+
 ### Employee Routes
 
 #### Get All Employees
@@ -94,16 +103,6 @@ curl -X GET http://localhost:5000/summary-statistics/department -H "Authorizatio
 ```bash
 curl -X GET http://localhost:5000/summary-statistics/dept-sub-dept -H "Authorization: Bearer <YOUR_JWT_TOKEN>"
 ```
-
-### Login Mechanism
-
-#### Login and Get JWT Token
-
-```bash
-curl -X POST http://localhost:5000/employee/login -H "Content-Type: application/json" -d '{"username": "your_username", "password": "your_password"}'
-```
-
-Replace `your_username` and `your_password` with your actual credentials.
 
 ## Testing
 
