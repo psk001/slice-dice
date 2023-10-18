@@ -4,19 +4,7 @@ const db = new sqlite3.Database("employees.db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-const getAll = async (req, res) => {
-  console.log("db", db);
-  db.all("SELECT * FROM users", (err, rows) => {
-    if (err) {
-      res.status(500).send(err.message);
-      return;
-    }
-
-    console.log(rows);
-    res.json(rows);
-  });
-};
-
+// dummy user to fecilitate authentication and authorization
 const user= {
     id: 1,
     username: 'psk',
@@ -80,23 +68,8 @@ const loginUser = async (req, res) => {
   }
 };
 
-// Function to get user by username from the database
-const getUserByUsername = (username) => {
-  console.log(username);
-  return new Promise((resolve, reject) => {
-    db.get("SELECT * FROM users WHERE username = ?", username, (err, row) => {
-      if (err) {
-        reject(err);
-      } else {
-        console.log(row);
-        resolve(row);
-      }
-    });
-  });
-};
 
 module.exports = {
-  getAll,
   loginUser,
   registerUser,
 };

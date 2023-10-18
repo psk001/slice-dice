@@ -2,7 +2,9 @@
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("employees.db");
 
-const getAll = async (req, res) => {
+const asyncHandler = require("../utils/asyncHandler");
+
+const getAll = asyncHandler(async (req, res) => {
   console.log("db", db);
   db.all("SELECT * FROM employees", (err, rows) => {
     if (err) {
@@ -11,11 +13,11 @@ const getAll = async (req, res) => {
     }
 
     console.log(rows);
-    res.json(rows);
+    res.send(rows);
   });
-};
+});
 
-const addEmployee = async (req, res) => {
+const addEmployee = asyncHandler(async (req, res) => {
   const { name, salary, currency, department, sub_department, on_contract } =
     req.body;
 
@@ -37,27 +39,34 @@ const addEmployee = async (req, res) => {
   stmt.finalize();
 
   res.send("Data stored successfully.");
-};
+});
 
-const deleteEmployee = async (req, res) => {
-  const { employeeName } = req.query;
-    console.log('emp ', employeeName)
-  db.run(`DELETE FROM employees WHERE name = ?`, employeeName, function (err) {
+const deleteEmployee = asyncHandler(async (req, res) => {
+  const { employeeId } = req.query;
+
+  db.run(`DELETE FROM employees WHERE ID = ?`, employeeId, function (err) {
     if (err) {
       console.error("Error deleting employee:", err.message);
-      return res.status(500).json({ error: "Internal Server Error" });
+      return res.status(500).send({ error: "Internal Server Error" });
     }
 
     if (this.changes === 0) {
-      return res.status(404).json({ error: "Employee not found" });
+      return res.status(404).send({
+        success: false,
+        error: "Employee not found",
+      });
     }
 
-    return res.json({ message: "Employee deleted successfully" });
+    return res.send({
+      success: true,
+      message: "Employee deleted successfully",
+      employeeId,
+    });
   });
-};
+});
 
 module.exports = {
   getAll,
   addEmployee,
-  deleteEmployee
+  deleteEmployee,
 };

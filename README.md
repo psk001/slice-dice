@@ -1,5 +1,6 @@
+Certainly! Here's the corrected version with the correct port (5000) specified:
 
-````markdown
+```markdown
 # Slicedice Node.js Express App
 
 This is a Node.js Express application for managing employee data and providing summary statistics.
@@ -12,7 +13,6 @@ This is a Node.js Express application for managing employee data and providing s
 git clone <repository_url>
 cd slicedice
 ```
-````
 
 2. Install dependencies:
 
@@ -26,7 +26,7 @@ Create a `.env` file in the root directory and add the following:
 
 ```env
 SECRET_KEY=your_secret_key
-PORT=3000
+PORT=5000
 ```
 
 Replace `your_secret_key` with your actual secret key.
@@ -45,7 +45,7 @@ npm run dev
 npm start
 ```
 
-The app will be running at `http://localhost:3000`.
+The app will be running at `http://localhost:5000`.
 
 ## API Endpoints
 
@@ -54,19 +54,19 @@ The app will be running at `http://localhost:3000`.
 #### Get All Employees
 
 ```bash
-curl -X GET http://localhost:3000/employee -H "Authorization: Bearer <YOUR_JWT_TOKEN>"
+curl -X GET http://localhost:5000/employee -H "Authorization: Bearer <YOUR_JWT_TOKEN>"
 ```
 
 #### Add Employee
 
 ```bash
-curl -X POST http://localhost:3000/employee -H "Authorization: Bearer <YOUR_JWT_TOKEN>" -H "Content-Type: application/json" -d '{"name": "John Doe", "salary": "50000", "currency": "USD", "department": "Engineering", "sub_department": "Platform"}'
+curl -X POST http://localhost:5000/employee -H "Authorization: Bearer <YOUR_JWT_TOKEN>" -H "Content-Type: application/json" -d '{"name": "John Doe", "salary": "50000", "currency": "USD", "department": "Engineering", "sub_department": "Platform"}'
 ```
 
 #### Delete Employee
 
 ```bash
-curl -X DELETE http://localhost:3000/employee -H "Authorization: Bearer <YOUR_JWT_TOKEN>" -d 'employeeName=John Doe'
+curl -X DELETE http://localhost:5000/employee -H "Authorization: Bearer <YOUR_JWT_TOKEN>" -d 'employeeName=John Doe'
 ```
 
 ### Summary Statistics Routes
@@ -74,25 +74,25 @@ curl -X DELETE http://localhost:3000/employee -H "Authorization: Bearer <YOUR_JW
 #### Get All Summary Statistics
 
 ```bash
-curl -X GET http://localhost:3000/summary-statistics -H "Authorization: Bearer <YOUR_JWT_TOKEN>"
+curl -X GET http://localhost:5000/summary-statistics -H "Authorization: Bearer <YOUR_JWT_TOKEN>"
 ```
 
 #### Get Summary Statistics for Employees on Contract
 
 ```bash
-curl -X GET http://localhost:3000/summary-statistics/on-contract -H "Authorization: Bearer <YOUR_JWT_TOKEN>"
+curl -X GET http://localhost:5000/summary-statistics/on-contract -H "Authorization: Bearer <YOUR_JWT_TOKEN>"
 ```
 
 #### Get Summary Statistics by Department
 
 ```bash
-curl -X GET http://localhost:3000/summary-statistics/department -H "Authorization: Bearer <YOUR_JWT_TOKEN>"
+curl -X GET http://localhost:5000/summary-statistics/department -H "Authorization: Bearer <YOUR_JWT_TOKEN>"
 ```
 
 #### Get Summary Statistics by Department and Sub-Department
 
 ```bash
-curl -X GET http://localhost:3000/summary-statistics/dept-sub-dept -H "Authorization: Bearer <YOUR_JWT_TOKEN>"
+curl -X GET http://localhost:5000/summary-statistics/dept-sub-dept -H "Authorization: Bearer <YOUR_JWT_TOKEN>"
 ```
 
 ### Login Mechanism
@@ -100,7 +100,7 @@ curl -X GET http://localhost:3000/summary-statistics/dept-sub-dept -H "Authoriza
 #### Login and Get JWT Token
 
 ```bash
-curl -X POST http://localhost:3000/employee/login -H "Content-Type: application/json" -d '{"username": "your_username", "password": "your_password"}'
+curl -X POST http://localhost:5000/employee/login -H "Content-Type: application/json" -d '{"username": "your_username", "password": "your_password"}'
 ```
 
 Replace `your_username` and `your_password` with your actual credentials.
@@ -122,7 +122,7 @@ npm test
 
    ```bash
    # Test Command
-   curl -X GET http://localhost:3000/employee -H "Authorization: Bearer <TEST_JWT_TOKEN>"
+   curl -X GET http://localhost:5000/employee -H "Authorization: Bearer <TEST_JWT_TOKEN>"
    ```
 
 2. **Add Employee:**
@@ -132,7 +132,7 @@ npm test
 
    ```bash
    # Test Command
-   curl -X POST http://localhost:3000/employee -H "Authorization: Bearer <TEST_JWT_TOKEN>" -H "Content-Type: application/json" -d '{"name": "Test Employee", "salary": "60000", "currency": "USD", "department": "Test Department", "sub_department": "Test Sub-Department"}'
+   curl -X POST http://localhost:5000/employee -H "Authorization: Bearer <TEST_JWT_TOKEN>" -H "Content-Type: application/json" -d '{"name": "Test Employee", "salary": "60000", "currency": "USD", "department": "Test Department", "sub_department": "Test Sub-Department"}'
    ```
 
 3. **Delete Employee:**
@@ -142,20 +142,45 @@ npm test
 
    ```bash
    # Test Command
-   curl -X DELETE http://localhost:3000/employee -H "Authorization: Bearer <TEST_JWT_TOKEN>" -d 'employeeName=Test Employee'
+   curl -X DELETE http://localhost:5000/employee -H "Authorization: Bearer <TEST_JWT_TOKEN>" -d 'employeeName=Test Employee'
    ```
 
-4. **Login and Get JWT Token:**
+4. **Get All Summary Statistics:**
 
-   - Ensure the login endpoint returns a valid JWT token.
-   - Use test credentials.
+   - Ensure the endpoint returns summary statistics for all departments.
+   - Use a test JWT token.
 
    ```bash
    # Test Command
-   curl -X POST http://localhost:3000/employee/login -H "Content-Type: application/json" -d '{"username": "test_user", "password": "test_password"}'
+   curl -X GET http://localhost:5000/summary-statistics -H "Authorization: Bearer <TEST_JWT_TOKEN>"
    ```
 
-```
+5. **Get Summary Statistics for Employees on Contract:**
 
-Remember to replace placeholders like `<TEST_JWT_TOKEN>`, `<repository_url>`, `<YOUR_JWT_TOKEN>`, `<YOUR_USERNAME>`, `<YOUR_PASSWORD>`, and `<your_secret_key>` with your actual values. This is just a template, and you may need to adjust it based on your application structure and specific requirements.
-```
+   - Ensure the endpoint returns summary statistics for employees on contract.
+   - Use a test JWT token.
+
+   ```bash
+   # Test Command
+   curl -X GET http://localhost:5000/summary-statistics/on-contract -H "Authorization: Bearer <TEST_JWT_TOKEN>"
+   ```
+
+6. **Get Summary Statistics by Department:**
+
+   - Ensure the endpoint returns summary statistics for each department.
+   - Use a test JWT token.
+
+   ```bash
+   # Test Command
+   curl -X GET http://localhost:5000/summary-statistics/department -H "Authorization: Bearer <TEST_JWT_TOKEN>"
+   ```
+
+7. **Get Summary Statistics by Department and Sub-Department:**
+
+   - Ensure the endpoint returns summary statistics for each department and sub-department combination.
+   - Use a test JWT token.
+
+   ```bash
+   # Test Command
+   curl -X GET http://localhost:5000/summary-statistics/dept-sub-dept -H "Authorization: Bearer <TEST_JWT_TOKEN>"
+   ```

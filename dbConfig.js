@@ -16,6 +16,7 @@ async function initDb() {
 
     db.run(`
       CREATE TABLE IF NOT EXISTS employees (
+        id INTEGER PRIMARY KEY, 
         name TEXT,
         salary INTEGER,
         currency TEXT,
